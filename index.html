@@ -84,7 +84,8 @@
   const supabaseUrl = 'https://dirdfklyghbgqllovqtc.supabase.co'
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpcmRma2x5Z2hiZ3FsbG92cXRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NTM3MDIsImV4cCI6MjA2MjAyOTcwMn0.88hazYfUF6tc9kqRHwdGACNT_Kys9EMQByUDKNJBCKw'
   const supabase = Supabase.createClient(supabaseUrl, supabaseKey) 
-  async function cargarImagenesDesdeBBDD() {
+  
+    async function cargarImagenesDesdeBBDD() {
     const contenedor = document.getElementById('galeria-imagenes')
 
     const { data, error } = await supabase
