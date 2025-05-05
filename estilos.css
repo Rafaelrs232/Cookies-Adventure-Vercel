@@ -1,0 +1,63 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {    
+    font-family: 'Fredoka','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: #6B3E26; /* Marrón chocolate */
+    padding: 15px;
+    background-image: url('FondoMenu.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    color: #FF6B81; /* Rosa fresa */
+}
+
+/* Secciones */
+.seccion {
+    padding: 40px 20px;
+    text-align: center;    
+}
+
+.imagen-juego {
+    max-width: 80%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Pie de página */
+footer {
+    background-color: #D2B48C; /* Marrón claro - galleta */
+    color: #000;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 3px solid #e6955e;
+}
