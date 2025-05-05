@@ -75,5 +75,67 @@
         <p>Centro de estudios FOC</p>
         <p>Curso Academico 24-25</p>
     </footer>
+
+    <!-- Codigo BBDD -->
+    <section id="subida" class="seccion">
+        <h2>Sube tu archivo</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Subir archivo</button>
+        <p id="mensaje"></p>
+    </section>
+    
+    <script type="module">
+      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+    
+      const supabaseUrl = 'https://TU_PROYECTO.supabase.co'
+      const supabaseKey = 'TU_CLAVE_ANON_PUBLICA'
+      const supabase = createClient(supabaseUrl, supabaseKey)
+    
+      async function uploadFile() {
+        const file = document.getElementById('fileInput').files[0]
+        const mensaje = document.getElementById('mensaje')
+    
+        if (!file) {
+          mensaje.textContent = 'Por favor, selecciona un archivo primero.'
+          return
+        }
+    
+        const tipo = file.type.includes('zip') ? 'zip' : 'foto'
+    
+        // 1. Subir a Supabase Storage
+        const { data, error } = await supabase.storage
+          .from('uploads')  // Nombre del bucket
+          .upload(`public/${file.name}`, file, {
+            cacheControl: '3600',
+            upsert: false
+          })
+    
+        if (error) {
+          mensaje.textContent = 'Error al subir el archivo: ' + error.message
+          return
+        }
+    
+        // 2. Obtener URL pública
+        const url = `${supabaseUrl}/storage/v1/object/public/uploads/public/${file.name}`
+    
+        // 3. Insertar en la tabla `archivos`
+        const insertResult = await supabase
+          .from('archivos')
+          .insert([
+            {
+              nombre_archivo: file.name,
+              tipo: tipo,
+              url: url
+            }
+          ])
+    
+        if (insertResult.error) {
+          mensaje.textContent = 'Archivo subido, pero error al guardar en la base de datos: ' + insertResult.error.message
+        } else {
+          mensaje.textContent = 'Archivo subido y guardado correctamente.'
+        }
+      }
+    </script>
+    
 </body>
 </html>
