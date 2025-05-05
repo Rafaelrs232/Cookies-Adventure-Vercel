@@ -92,7 +92,7 @@
     const { data, error } = await supabase
       .from('archivos')
       .select('nombre_archivo, url')
-      .eq('tipo', 'foto')
+      .limit(10) 
 
     if (error) {
       contenedor.innerHTML = '<p>Error al cargar imágenes.</p>'
@@ -116,6 +116,8 @@
 
   cargarImagenesDesdeBBDD()
 </script>
+
+    <!--.eq('tipo', 'foto')-->
     
     
 </body>
