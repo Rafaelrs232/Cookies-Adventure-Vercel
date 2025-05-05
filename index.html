@@ -79,20 +79,10 @@
         <p>Curso Academico 24-25</p>
     </footer>
 
-    <script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
   const supabaseUrl = 'https://dirdfklyghbgqllovqtc.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpcmRma2x5Z2hiZ3FsbG92cXRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NTM3MDIsImV4cCI6MjA2MjAyOTcwMn0.88hazYfUF6tc9kqRHwdGACNT_Kys9EMQByUDKNJBCKw' // ← Reemplázala con la tuya real
-  const supabase = createClient(supabaseUrl, supabaseKey)
-  (async () => {
-  const { data, error } = await supabase.from('archivos').select('*').limit(1)
-  if (error) {
-    console.error('Error de conexión o consulta a la tabla:', error)
-  } else {
-    console.log('Conexión exitosa. Datos recibidos:', data)
-  }
-})()        
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpcmRma2x5Z2hiZ3FsbG92cXRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NTM3MDIsImV4cCI6MjA2MjAyOTcwMn0.88hazYfUF6tc9kqRHwdGACNT_Kys9EMQByUDKNJBCKw'
 
   async function cargarImagenesDesdeBBDD() {
     const contenedor = document.getElementById('galeria-imagenes')
@@ -100,7 +90,7 @@
     const { data, error } = await supabase
       .from('archivos')
       .select('nombre_archivo, url')
-      .limit(10) 
+      .eq('tipo', 'foto')
 
     if (error) {
       contenedor.innerHTML = '<p>Error al cargar imágenes.</p>'
@@ -123,9 +113,7 @@
   }
 
   cargarImagenesDesdeBBDD()
-</script>
-
-    <!--.eq('tipo', 'foto')-->
+</script>      
     
     
 </body>
