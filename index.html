@@ -79,48 +79,32 @@
         <p>Curso Academico 24-25</p>
     </footer>
 
- <!-- Cargar el SDK UMD de Supabase correctamente -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-
-<!-- Tu código debe ir aquí, después de que se haya cargado la librería -->
 <script>
-  // ✅ Usa el nombre global correcto: supabasejs
-  const supabase = supabasejs.createClient(
+  const { createClient } = supabase;
+  const supabaseClient = createClient(
     'https://dirdfklyghbgqllovqtc.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpcmRma2x5Z2hiZ3FsbG92cXRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NTM3MDIsImV4cCI6MjA2MjAyOTcwMn0.88hazYfUF6tc9kqRHwdGACNT_Kys9EMQByUDKNJBCKw'
   );
 
   async function cargarImagenesDesdeBBDD() {
     const contenedor = document.getElementById('galeria-imagenes');
-
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('archivos')
       .select('nombre_archivo, url')
       .eq('tipo', 'foto');
 
-    if (error) {
-      contenedor.innerHTML = '<p>Error al cargar imágenes.</p>';
-      console.error(error);
-      return;
-    }
-
-    if (!data || !data.length) {
-      contenedor.innerHTML = '<p>No hay imágenes disponibles.</p>';
-      return;
-    }
-
-    data.forEach((archivo) => {
+    if (error) { /* …manejo de error… */ return; }
+    data.forEach(({ nombre_archivo, url }) => {
       const img = document.createElement('img');
-      img.src = archivo.url;
-      img.alt = archivo.nombre_archivo;
-      img.style = 'max-width: 300px; margin: 10px; display: inline-block;';
+      img.src = url;
+      img.alt = nombre_archivo;
       contenedor.appendChild(img);
     });
   }
 
   cargarImagenesDesdeBBDD();
-</script>    
-    
+</script>
     
 </body>
 </html>
